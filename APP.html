@@ -1,1 +1,105 @@
-Hola mi asistente personal.
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <title>Mi asistente personal</title>
+
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    button, textarea {
+      font-size: 24px;
+      padding: 20px;
+      margin: 12px 0;
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 12px;
+    }
+
+    button {
+      background: #ffdf00;
+      color: #111;
+      font-weight: bold;
+      border: 3px solid white;
+      min-height: 80px;
+    }
+
+    textarea {
+      background: white;
+      color: black;
+    }
+
+    button:focus, textarea:focus {
+      outline: 5px solid #00ffff;
+    }
+
+    #respuesta {
+      margin-top: 25px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Mi asistente personal</h1>
+
+    <p>Tu asistente está aquí para ayudarte.</p>
+
+    <button onclick="hablar()">
+      Escuchar al asistente
+    </button>
+
+    <label for="mensaje">
+      También puedes escribir:
+    </label>
+
+    <textarea id="mensaje" rows="3"></textarea>
+
+    <button onclick="enviar()">
+      Enviar mensaje
+    </button>
+
+    <p id="respuesta" role="status"
+       aria-live="polite"></p>
+  </main>
+
+  <script>
+    function decir(texto) {
+      speechSynthesis.cancel();
+
+      const voz = new SpeechSynthesisUtterance(texto);
+      voz.lang = "es-ES";
+      voz.rate = 0.9;
+
+      speechSynthesis.speak(voz);
+    }
+
+    function hablar() {
+      decir("Hola. Soy tu asistente personal.");
+    }
+
+    function enviar() {
+      const mensaje =
+        document.getElementById("mensaje").value;
+
+      const respuesta =
+        "He recibido tu mensaje. Pronto podré ayudarte.";
+
+      document.getElementById("respuesta").textContent =
+        respuesta;
+
+      decir(respuesta);
+    }
+  </script>
+</body>
+</html>
